@@ -4,10 +4,10 @@ import Button from "./Button";
 
 export const Home = () => {
   return (
-    <div className="my-10 ">
-      <div className="sm:max-h-[525px] w-full">
+    <div className="my-10">
+      <div className="sm:max-h-[525px] sm:w-full">
         <img
-          className="min-h-[200px] h-[420px] block object-contain"
+          className=" mx-auto h-[420px] block object-contain"
           src={study}
           alt="A man reading"
         />
@@ -23,7 +23,7 @@ export const Home = () => {
 
       <Button
         text="sign up"
-        className="mx-auto block text-white font-bold  w-1/2 py-4 rounded-xl bg-[#D45555]"
+        className="mx-auto block text-white font-bold  w-1/2 sm:w-1/4  py-4 rounded-xl bg-[#D45555]"
       />
     </div>
   );
