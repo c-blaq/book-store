@@ -2,8 +2,11 @@ import React from "react";
 import Button from "./Button";
 import bookCover from "../assets/images/book1.png";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 const BookDetails = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="w-11/12 sm:w-5/6 my-10 mx-auto max-w-7xl">
       <Header />
@@ -47,6 +50,7 @@ const BookDetails = () => {
       <Button
         text="Read Book"
         className="mx-auto block mt-4 text-white font-bold  w-1/2 sm:w-1/4  py-4 rounded-xl bg-[#19191B]"
+        onClick={() => navigate("/book")}
       />
     </div>
   );

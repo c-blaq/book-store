@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import study from "../assets/images/study.png";
 import Button from "./Button";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="my-10">
       <div className="sm:max-h-[525px] sm:w-full">
@@ -24,6 +27,7 @@ export const Home = () => {
       <Button
         text="sign up"
         className="mx-auto block text-white font-bold  w-1/2 sm:w-1/4  py-4 rounded-xl bg-[#D45555]"
+        onClick={() => navigate("/sign-up")}
       />
     </div>
   );
