@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   getAuth,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 const app = initializeApp({
@@ -17,8 +18,13 @@ const app = initializeApp({
 
 const auth = getAuth();
 
+// Authentications
 export const signUpAuth = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const loginAuth = (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password);
 };
 
 export const useAuth = () => {

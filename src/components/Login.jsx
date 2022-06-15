@@ -1,52 +1,32 @@
-import React, { useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineEye } from "react-icons/ai";
 import Button from "./Button";
-import { signUpAuth, useAuth } from "../firebase";
+import { loginAuth } from "../firebase";
 
-const SignUp = () => {
-  const nameRef = useRef();
+const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const currentUser = useAuth();
-  const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // setLoading(true);
     try {
-      setError("");
-      await signUpAuth(emailRef.current.value, passwordRef.current.value);
-      setLoading(true);
-
-      if (currentUser) {
-        navigate("/sign-in");
-      }
+      await loginAuth(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError("Failed to create an account");
+      setError("Username or password is incorrect");
     }
-
-    setLoading(false);
   };
 
   return (
     <div className="flex justify-center flex-col h-screen ">
       <div className="w-5/6 sm:w-3/4 lg:w-1/2 m-auto">
-        <h2 className="mb-8 text-3xl text-center">Create an Account</h2>
+        <h2 className="mb-8 text-3xl text-center">log In</h2>
         <form action="">
-          {error && <p>{error}</p>}
-          <div>
-            <input
-              className="w-full bg-gray-100 border-b-4 py-4 pl-3 border-solid border-red-400 outline-none mb-4"
-              type="text"
-              placeholder="Full Name"
-              ref={nameRef}
-            />
-          </div>
-
+          {error && (
+            <p className="text-red-600 my-5 bg-gray-300 p-2">{error}</p>
+          )}
           <div>
             <input
               className="w-full bg-gray-100 border-b-4 py-4 pl-3 border-solid border-red-400 outline-none mb-4"
@@ -70,15 +50,14 @@ const SignUp = () => {
             className="block bg-red-400 py-4 rounded-lg text-white w-1/2 sm:w-1/3 max-w-xs m-auto"
             type="submit"
             text="sign up"
-            disabled={loading || currentUser !== null}
-            onClick={handleSignUp}
+            onClick={handleLogin}
           />
         </form>
         <div className="flex justify-between items-center  my-6">
           <span className="block">
-            Already have an account?
-            <Link to="/sign-in" className="text-gray-500 ml-1">
-              Sign in
+            Don't have an account?
+            <Link to="/sign-up" className="text-gray-500 ml-1">
+              Sign up
             </Link>
           </span>
 
@@ -94,4 +73,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
