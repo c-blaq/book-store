@@ -3,7 +3,7 @@ import Header from "./Header";
 
 const ReadBook = () => {
   return (
-    <div className="w-11/12 sm:w-5/6 my-10 mx-auto max-w-7xl">
+    <div>
       <Header />
       <div>
         <div className="text-center my-6">

@@ -8,7 +8,7 @@ const BookDetails = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-11/12 sm:w-5/6 my-10 mx-auto max-w-7xl">
+    <div>
       <Header />
       <div className="book-details">
         <div className="book-about">
