@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../firebase";
+import { logout, useAuth } from "../firebase";
 import bookCover from "../assets/images/book1.png";
 import bookCover2 from "../assets/images/book2.png";
 import { BsFillPersonFill, BsSearch, BsFillMicFill } from "react-icons/bs";
@@ -7,20 +7,40 @@ import { BsFillPersonFill, BsSearch, BsFillMicFill } from "react-icons/bs";
 import Swiper, { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const currentUser = useAuth();
+  const navigate = useNavigate();
 
   const swiper = new Swiper(".swiper", {
     spaceBetween: 10,
     slidesPerView: 2,
   });
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/sign-in");
+    } catch {
+      console.log("something went wrong!");
+    }
+  };
+
   return (
     <div>
       <header className="my-4">
-        <div className="bg-gray-200 ml-auto rounded-[50%] w-10 h-10 flex items-center justify-center text-2xl text-gray-400 ">
-          <BsFillPersonFill />
+        <div className="flex text-right items-center">
+          <div className="bg-gray-200 rounded-[50%] ml-auto mr-2  w-10 h-10 flex items-center justify-center text-2xl text-gray-400 ">
+            <BsFillPersonFill />
+          </div>
+          <Button
+            type="button"
+            text="logout"
+            className="h-10 px-4  bg-red-500 text-white rounded"
+            onClick={handleLogout}
+          />
         </div>
       </header>
       <section>

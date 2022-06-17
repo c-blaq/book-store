@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   getAuth,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 const app = initializeApp({
@@ -27,6 +28,9 @@ export const loginAuth = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
+export const logout = () => {
+  return signOut(auth);
+};
 export const useAuth = () => {
   const [currentUser, setCurrentUser] = useState();
 
