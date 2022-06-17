@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineEye } from "react-icons/ai";
 import Button from "./Button";

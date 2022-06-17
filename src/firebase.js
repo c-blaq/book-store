@@ -17,7 +17,7 @@ const app = initializeApp({
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 });
 
-const auth = getAuth();
+const auth = getAuth(app);
 
 // Authentications
 export const signUpAuth = (email, password) => {

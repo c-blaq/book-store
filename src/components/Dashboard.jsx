@@ -4,7 +4,7 @@ import bookCover from "../assets/images/book1.png";
 import bookCover2 from "../assets/images/book2.png";
 import { BsFillPersonFill, BsSearch, BsFillMicFill } from "react-icons/bs";
 
-import Swiper, { Navigation } from "swiper";
+import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import Button from "./Button";
@@ -14,7 +14,7 @@ const Dashboard = () => {
   const currentUser = useAuth();
   const navigate = useNavigate();
 
-  const swiper = new Swiper(".swiper", {
+  new Swiper(".swiper", {
     spaceBetween: 10,
     slidesPerView: 2,
   });
