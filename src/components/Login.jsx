@@ -3,17 +3,20 @@ import { Link } from "react-router-dom";
 import { AiOutlineEye } from "react-icons/ai";
 import Button from "./Button";
 import { loginAuth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       await loginAuth(emailRef.current.value, passwordRef.current.value);
+      navigate("/dashboard");
     } catch {
       setError("Username or password is incorrect");
     }
@@ -49,7 +52,7 @@ const Login = () => {
           <Button
             className="block bg-red-400 py-4 rounded-lg text-white w-1/2 sm:w-1/3 max-w-xs m-auto"
             type="submit"
-            text="sign up"
+            text="sign in"
             onClick={handleLogin}
           />
         </form>
