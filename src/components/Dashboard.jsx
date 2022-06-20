@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { logout, useAuth } from "../firebase";
 import bookCover from "../assets/images/book1.png";
 import bookCover2 from "../assets/images/book2.png";
 import { BsFillPersonFill, BsSearch, BsFillMicFill } from "react-icons/bs";
+import axios from "axios";
 
 import Swiper from "swiper";
 import "swiper/css";
@@ -13,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const currentUser = useAuth();
   const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState("");
+  const [books, setBooks] = useState([]);
 
   new Swiper(".swiper", {
     spaceBetween: 10,
@@ -26,6 +29,13 @@ const Dashboard = () => {
     } catch {
       console.log("something went wrong!");
     }
+  };
+
+  const handleSearch = async () => {
+    const { data } = await axios.get(
+      `http://openlibrary.org/search.json?q=${encodeURIComponent(searchInput)}`
+    );
+    setBooks(data.docs);
   };
 
   return (
@@ -54,11 +64,16 @@ const Dashboard = () => {
             <BsSearch />
           </span>
           <input
+            onKeyDown={(e) => (e.key === "Enter" ? handleSearch() : "")}
             type="text"
             placeholder="Search"
+            onChange={(e) => setSearchInput(e.target.value)}
             className="bg-gray-100 p-3 pl-6 w-full rounded shadow-sm outline-none"
           />
-          <span className="top-1/3 right-2 absolute text-gray-400">
+          <span
+            onClick={handleSearch}
+            className="top-1/3 right-2 absolute text-gray-400"
+          >
             <BsFillMicFill />
           </span>
         </div>
@@ -79,42 +94,19 @@ const Dashboard = () => {
 
         <div className="swiper my-6">
           <div className="swiper-wrapper">
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover}
-                alt="Book Cover"
-              />
-            </div>
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover2}
-                alt="Book Cover"
-              />
-            </div>
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover}
-                alt="Book Cover"
-              />
-            </div>
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover2}
-                alt="Book Cover"
-              />
-            </div>
-
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover}
-                alt="Book Cover"
-              />
-            </div>
+            {books
+              .filter((book) => Boolean(book.cover_i))
+              .map((book) => {
+                return (
+                  <div className="swiper-slide" key={book.key}>
+                    <img
+                      className=" shadow-xl h-[200px] rounded-2xl"
+                      src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+                      alt="Book Cover"
+                    />
+                  </div>
+                );
+              })}
           </div>
         </div>
       </section>
