@@ -106,7 +106,7 @@ const Dashboard = () => {
               .map((book) => {
                 return (
                   <Link
-                    to={`/book/details/${book.author_key}.json`}
+                    to={`/book/details/${book.isbn13}.json`}
                     key={book.isbn13}
                     className="cursor-pointer swiper-slide block"
                   >
