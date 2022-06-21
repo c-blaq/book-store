@@ -9,7 +9,7 @@ import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const currentUser = useAuth();
@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   new Swiper(".swiper", {
     spaceBetween: 10,
-    slidesPerView: 2,
+    slidesPerView: 3,
   });
 
   const handleLogout = async () => {
@@ -32,10 +32,16 @@ const Dashboard = () => {
   };
 
   const handleSearch = async () => {
-    const { data } = await axios.get(
-      `http://openlibrary.org/search.json?q=${encodeURIComponent(searchInput)}`
-    );
-    setBooks(data.docs);
+    try {
+      const { data } = await axios.get(
+        `https://api.itbook.store/1.0/search/${encodeURIComponent(searchInput)}`
+      );
+      setSearchInput("");
+      console.log(data.books);
+      setBooks(data.books);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -67,6 +73,7 @@ const Dashboard = () => {
             onKeyDown={(e) => (e.key === "Enter" ? handleSearch() : "")}
             type="text"
             placeholder="Search"
+            value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="bg-gray-100 p-3 pl-6 w-full rounded shadow-sm outline-none"
           />
@@ -95,16 +102,22 @@ const Dashboard = () => {
         <div className="swiper my-6">
           <div className="swiper-wrapper">
             {books
-              .filter((book) => Boolean(book.cover_i))
+              .filter((book) => Boolean(book.image))
               .map((book) => {
                 return (
-                  <div className="swiper-slide" key={book.key}>
-                    <img
-                      className=" shadow-xl h-[200px] rounded-2xl"
-                      src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-                      alt="Book Cover"
-                    />
-                  </div>
+                  <Link
+                    to={`/book/details/${book.author_key}.json`}
+                    key={book.isbn13}
+                    className="cursor-pointer swiper-slide block"
+                  >
+                    <div className="relative">
+                      <img
+                        className=" h-[200px] rounded-2xl object-cover"
+                        src={book.image}
+                        alt="Book Cover"
+                      />
+                    </div>
+                  </Link>
                 );
               })}
           </div>
