@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Button from "./Button";
 import { signUpAuth, useAuth } from "../firebase";
 
@@ -12,6 +12,13 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const currentUser = useAuth();
   const navigate = useNavigate();
+
+  const [passwordType, setPasswordType] = useState('password')
+
+  const togglePassword = () => {
+    return passwordType === 'password' ? setPasswordType('text') : setPasswordType('password')
+
+  }
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -59,11 +66,12 @@ const SignUp = () => {
           <div className="relative">
             <input
               className="w-full bg-gray-100 border-b-4 py-4 pl-3 border-solid border-red-400 outline-none mb-4"
-              type="password"
+              type={passwordType}
               placeholder="Password"
               ref={passwordRef}
             />
-            <AiOutlineEye className="absolute top-1/4 right-[5%]" />
+          {passwordType === 'password' ? <AiOutlineEye className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/> :
+          <AiOutlineEyeInvisible  className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/>}
           </div>
 
           <Button
@@ -74,7 +82,7 @@ const SignUp = () => {
             onClick={handleSignUp}
           />
         </form>
-        <div className="flex justify-between items-center  my-6">
+        <div className="flex justify-between flex-col sm:flex-row text-center items-center my-6">
           <span className="block">
             Already have an account?
             <Link to="/sign-in" className="text-gray-500 ml-1">

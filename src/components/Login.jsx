@@ -1,15 +1,23 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible  } from "react-icons/ai";
 import Button from "./Button";
 import { loginAuth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+
+
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [passwordType, setPasswordType] = useState('password')
+
+  const togglePassword = () => {
+    return passwordType === 'password' ? setPasswordType('text') : setPasswordType('password')
+
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,12 +50,14 @@ const Login = () => {
           <div className="relative">
             <input
               className="w-full bg-gray-100 border-b-4 py-4 pl-3 border-solid border-red-400 outline-none mb-4"
-              type="password"
+              type={passwordType}
               placeholder="Password"
               ref={passwordRef}
             />
-            <AiOutlineEye className="absolute top-1/4 right-[5%]" />
+          {passwordType === 'password' ? <AiOutlineEye className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/> :
+          <AiOutlineEyeInvisible  className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/>}
           </div>
+
 
           <Button
             className="block bg-red-400 py-4 rounded-lg text-white w-1/2 sm:w-1/3 max-w-xs m-auto"
