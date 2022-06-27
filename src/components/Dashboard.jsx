@@ -98,34 +98,33 @@ const Dashboard = () => {
       </section>
 
       <section className="my-6">
-        <div className="swiper overflow-x-visible">
-          <div className="swiper-wrapper">
-            <span className=" swiper-slide ">Novel</span>
-          </div>
-          <div className="swipper-scrollbar"></div>
-        </div>
+        <h2 className="text-2xl font-bold">Results</h2>
 
         <div className="swiper my-6">
           <div className="swiper-wrapper">
-            {books
-              .filter((book) => Boolean(book.image))
-              .map((book) => {
-                return (
-                  <Link
-                    to={`/book/details/${book.isbn13}.json`}
-                    key={book.isbn13}
-                    className="cursor-pointer swiper-slide block"
-                  >
-                    <div className="relative">
-                      <img
-                        className="h-[200px] rounded-2xl object-cover"
-                        src={book.image}
-                        alt="Book Cover"
-                      />
-                    </div>
-                  </Link>
-                );
-              })}
+            {books.length === 0 ? (
+              <p className="text-lg mb-10">No book found!</p>
+            ) : (
+              books
+                .filter((book) => Boolean(book.image))
+                .map((book) => {
+                  return (
+                    <Link
+                      to={`/book/details/${book.isbn13}.json`}
+                      key={book.isbn13}
+                      className="cursor-pointer swiper-slide block"
+                    >
+                      <div className="relative">
+                        <img
+                          className="h-[200px] rounded-2xl object-cover"
+                          src={book.image}
+                          alt="Book Cover"
+                        />
+                      </div>
+                    </Link>
+                  );
+                })
+            )}
           </div>
         </div>
       </section>

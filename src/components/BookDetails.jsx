@@ -53,15 +53,15 @@ const BookDetails = () => {
                 <p className="text-[#9D9D9D]">{book.desc}</p>
               </div>
             </div>
-            <Link
-              to={{ pathname: `https://itbook.store/books/${book.isbn}` }}
+            <a
+              href={`https://itbook.store/books/${book.isbn13}`}
               target="_blank"
             >
               <Button
                 text="Get Book"
                 className="mx-auto block mt-4 text-white font-bold  w-1/2 sm:w-1/4  py-4 rounded-xl bg-[#19191B]"
               />
-            </Link>
+            </a>
           </div>
         );
       })}
