@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { logout, useAuth } from "../firebase";
-import bookCover from "../assets/images/book1.png";
-import bookCover2 from "../assets/images/book2.png";
 import { BsFillPersonFill, BsSearch, BsFillMicFill } from "react-icons/bs";
 import axios from "axios";
 
@@ -10,12 +8,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const currentUser = useAuth();
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [books, setBooks] = useState([]);
+  const [newbooks, setNewBooks] = useState([]);
 
   new Swiper(".swiper", {
     spaceBetween: 10,
@@ -37,12 +37,23 @@ const Dashboard = () => {
         `https://api.itbook.store/1.0/search/${encodeURIComponent(searchInput)}`
       );
       setSearchInput("");
-      console.log(data.books);
       setBooks(data.books);
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const fetchNewBooks = async () => {
+      try {
+        const { data } = await axios.get("https://api.itbook.store/1.0/new");
+        setNewBooks(data.books);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchNewBooks();
+  }, []);
 
   return (
     <div>
@@ -90,11 +101,6 @@ const Dashboard = () => {
         <div className="swiper overflow-x-visible">
           <div className="swiper-wrapper">
             <span className=" swiper-slide ">Novel</span>
-            <span className=" swiper-slide ">Self-love</span>
-            <span className=" swiper-slide ">sci-fi</span>
-            <span className=" swiper-slide ">romance</span>
-            <span className=" swiper-slide ">philosophy</span>
-            <span className=" swiper-slide ">philosophy</span>
           </div>
           <div className="swipper-scrollbar"></div>
         </div>
@@ -112,7 +118,7 @@ const Dashboard = () => {
                   >
                     <div className="relative">
                       <img
-                        className=" h-[200px] rounded-2xl object-cover"
+                        className="h-[200px] rounded-2xl object-cover"
                         src={book.image}
                         alt="Book Cover"
                       />
@@ -129,42 +135,25 @@ const Dashboard = () => {
 
         <div className="swiper my-6">
           <div className="swiper-wrapper">
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover}
-                alt="Book Cover"
-              />
-            </div>
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover2}
-                alt="Book Cover"
-              />
-            </div>
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover}
-                alt="Book Cover"
-              />
-            </div>
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover2}
-                alt="Book Cover"
-              />
-            </div>
-
-            <div className="swiper-slide ">
-              <img
-                className=" shadow-xl h-[200px] rounded-2xl"
-                src={bookCover}
-                alt="Book Cover"
-              />
-            </div>
+            {newbooks
+              .filter((book) => Boolean(book.image))
+              .map((book) => {
+                return (
+                  <Link
+                    to={`/book/details/${book.isbn13}.json`}
+                    key={book.isbn13}
+                    className="cursor-pointer swiper-slide block"
+                  >
+                    <div>
+                      <img
+                        className="h-[200px] rounded-2xl object-cover"
+                        src={book.image}
+                        alt="Book Cover"
+                      />
+                    </div>
+                  </Link>
+                );
+              })}
           </div>
         </div>
       </section>
