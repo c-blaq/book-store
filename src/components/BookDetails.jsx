@@ -31,7 +31,7 @@ const BookDetails = () => {
           <div className="book-details" key={book.isbn13}>
             <div className="book-about">
               <img
-                className="block shadow-xl w-1/2 my-4 mx-auto rounded-2xl sm:h-[350px] md:w-1/3 lg:h-[380px]"
+                className="block sw-1/2 my-4 mx-auto object-cover rounded-2xl sm:h-[350px] md:w-1/3 lg:h-[380px]"
                 src={book.image}
                 alt="Book Cover"
               />
