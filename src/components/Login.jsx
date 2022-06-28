@@ -1,23 +1,22 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineEye, AiOutlineEyeInvisible  } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Button from "./Button";
 import { loginAuth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-
-
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [passwordType, setPasswordType] = useState('password')
+  const [passwordType, setPasswordType] = useState("password");
 
   const togglePassword = () => {
-    return passwordType === 'password' ? setPasswordType('text') : setPasswordType('password')
-
-  }
+    return passwordType === "password"
+      ? setPasswordType("text")
+      : setPasswordType("password");
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -54,10 +53,18 @@ const Login = () => {
               placeholder="Password"
               ref={passwordRef}
             />
-          {passwordType === 'password' ? <AiOutlineEye className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/> :
-          <AiOutlineEyeInvisible  className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/>}
+            {passwordType === "password" ? (
+              <AiOutlineEye
+                className="absolute top-1/4 right-[5%] cursor-pointer"
+                onClick={togglePassword}
+              />
+            ) : (
+              <AiOutlineEyeInvisible
+                className="absolute top-1/4 right-[5%] cursor-pointer"
+                onClick={togglePassword}
+              />
+            )}
           </div>
-
 
           <Button
             className="block bg-red-400 py-4 rounded-lg text-white w-1/2 sm:w-1/3 max-w-xs m-auto"
@@ -76,7 +83,7 @@ const Login = () => {
 
           <span className="block">
             Forgot password?
-            <Link to="/" className="text-gray-500 ml-1">
+            <Link to="/forgot-password" className="text-gray-500 ml-1">
               Click here
             </Link>
           </span>

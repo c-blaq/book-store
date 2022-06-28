@@ -3,12 +3,14 @@ import { logout, useAuth } from "../firebase";
 import { BsFillPersonFill, BsSearch, BsFillMicFill } from "react-icons/bs";
 import axios from "axios";
 
-import Swiper from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { FreeMode, Pagination } from "swiper";
 
 const Dashboard = () => {
   const currentUser = useAuth();
@@ -16,11 +18,6 @@ const Dashboard = () => {
   const [searchInput, setSearchInput] = useState("");
   const [books, setBooks] = useState([]);
   const [newbooks, setNewBooks] = useState([]);
-
-  new Swiper(".swiper", {
-    spaceBetween: 10,
-    slidesPerView: 3,
-  });
 
   const handleLogout = async () => {
     try {
@@ -100,61 +97,63 @@ const Dashboard = () => {
       <section className="my-6">
         <h2 className="text-2xl font-bold">Results</h2>
 
-        <div className="swiper my-6">
-          <div className="swiper-wrapper">
-            {books.length === 0 ? (
-              <p className="text-lg mb-10">No book found!</p>
-            ) : (
-              books
-                .filter((book) => Boolean(book.image))
-                .map((book) => {
-                  return (
+        <Swiper slidesPerView={"auto"} spaceBetween={30} className="mySwiper">
+          {books.length === 0 ? (
+            <p className="text-lg mb-10">No book found!</p>
+          ) : (
+            books
+              .filter((book) => Boolean(book.image))
+              .map((book) => {
+                return (
+                  <SwiperSlide
+                    key={book.isbn13}
+                    className="block w-1/3 smaller:w-1/4 sm:w-1/4 lg:w-1/6"
+                  >
                     <Link
                       to={`/book/details/${book.isbn13}.json`}
-                      key={book.isbn13}
                       className="cursor-pointer swiper-slide block"
                     >
-                      <div className="relative">
+                      <div>
                         <img
-                          className="h-[200px] rounded-2xl object-cover"
+                          className=" h-52 sm:h-80 lg:h-96 image.png rounded-2xl object-cover pointer-events-none"
                           src={book.image}
                           alt="Book Cover"
                         />
                       </div>
                     </Link>
-                  );
-                })
-            )}
-          </div>
-        </div>
+                  </SwiperSlide>
+                );
+              })
+          )}
+        </Swiper>
       </section>
 
       <section>
         <h2 className="text-2xl font-bold">New Arrival</h2>
 
-        <div className="swiper my-6">
-          <div className="swiper-wrapper">
-            {newbooks
-              .filter((book) => Boolean(book.image))
-              .map((book) => {
-                return (
+        <Swiper slidesPerView={"auto"} spaceBetween={30} className="mySwiper">
+          {newbooks
+            .filter((book) => Boolean(book.image))
+            .map((book) => {
+              return (
+                <SwiperSlide
+                  key={book.isbn13}
+                  className="block w-1/3 smaller:w-1/4 sm:w-1/4 lg:w-1/6"
+                >
                   <Link
                     to={`/book/details/${book.isbn13}.json`}
-                    key={book.isbn13}
-                    className="cursor-pointer swiper-slide block"
+                    className="cursor-pointer"
                   >
-                    <div>
-                      <img
-                        className="h-[200px] rounded-2xl object-cover"
-                        src={book.image}
-                        alt="Book Cover"
-                      />
-                    </div>
+                    <img
+                      className=" h-52 sm:h-80 lg:h-96 image.png rounded-2xl object-cover pointer-events-none"
+                      src={book.image}
+                      alt="Book Cover"
+                    />
                   </Link>
-                );
-              })}
-          </div>
-        </div>
+                </SwiperSlide>
+              );
+            })}
+        </Swiper>
       </section>
     </div>
   );

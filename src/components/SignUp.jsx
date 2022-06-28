@@ -13,12 +13,13 @@ const SignUp = () => {
   const currentUser = useAuth();
   const navigate = useNavigate();
 
-  const [passwordType, setPasswordType] = useState('password')
+  const [passwordType, setPasswordType] = useState("password");
 
   const togglePassword = () => {
-    return passwordType === 'password' ? setPasswordType('text') : setPasswordType('password')
-
-  }
+    return passwordType === "password"
+      ? setPasswordType("text")
+      : setPasswordType("password");
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -70,8 +71,17 @@ const SignUp = () => {
               placeholder="Password"
               ref={passwordRef}
             />
-          {passwordType === 'password' ? <AiOutlineEye className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/> :
-          <AiOutlineEyeInvisible  className="absolute top-1/4 right-[5%] cursor-pointer"  onClick={togglePassword}/>}
+            {passwordType === "password" ? (
+              <AiOutlineEye
+                className="absolute top-1/4 right-[5%] cursor-pointer"
+                onClick={togglePassword}
+              />
+            ) : (
+              <AiOutlineEyeInvisible
+                className="absolute top-1/4 right-[5%] cursor-pointer"
+                onClick={togglePassword}
+              />
+            )}
           </div>
 
           <Button
@@ -92,7 +102,7 @@ const SignUp = () => {
 
           <span className="block">
             Forgot password?
-            <Link to="/" className="text-gray-500 ml-1">
+            <Link to="/password" className="text-gray-500 ml-1">
               Click here
             </Link>
           </span>
