@@ -6,6 +6,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 const app = initializeApp({
@@ -31,6 +32,11 @@ export const loginAuth = (email, password) => {
 export const logout = () => {
   return signOut(auth);
 };
+
+export const resetPassword = (email) => {
+  return sendPasswordResetEmail(auth, email);
+};
+
 export const useAuth = () => {
   const [currentUser, setCurrentUser] = useState();
 
