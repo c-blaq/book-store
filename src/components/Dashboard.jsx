@@ -5,8 +5,9 @@ import axios from "axios";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Navigation, Keyboard } from "swiper";
+
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -74,9 +75,6 @@ const Dashboard = () => {
         </div>
 
         <div className="relative">
-          <span className="absolute top-1/3 left-2 text-gray-400">
-            <BsSearch />
-          </span>
           <input
             onKeyDown={(e) => (e.key === "Enter" ? handleSearch() : "")}
             type="text"
@@ -87,9 +85,9 @@ const Dashboard = () => {
           />
           <span
             onClick={handleSearch}
-            className="top-1/3 right-2 absolute text-gray-400"
+            className="top-1/3 right-4 cursor-pointer absolute text-gray-400"
           >
-            <BsFillMicFill />
+            <BsSearch />
           </span>
         </div>
       </section>
@@ -97,7 +95,17 @@ const Dashboard = () => {
       <section className="my-6">
         <h2 className="text-2xl font-bold">Results</h2>
 
-        <Swiper slidesPerView={"auto"} spaceBetween={30} className="mySwiper">
+        <Swiper
+          style={{
+            "--swiper-navigation-color": "#000",
+          }}
+          slidesPerView={"auto"}
+          spaceBetween={30}
+          navigation={true}
+          keyboard={true}
+          modules={[Navigation, Keyboard]}
+          className="mySwiper"
+        >
           {books.length === 0 ? (
             <p className="text-lg mb-10">No book found!</p>
           ) : (
@@ -131,7 +139,17 @@ const Dashboard = () => {
       <section>
         <h2 className="text-2xl font-bold">New Arrival</h2>
 
-        <Swiper slidesPerView={"auto"} spaceBetween={30} className="mySwiper">
+        <Swiper
+          style={{
+            "--swiper-navigation-color": "#000",
+          }}
+          slidesPerView={"auto"}
+          spaceBetween={30}
+          navigation={true}
+          keyboard={true}
+          modules={[Navigation, Keyboard]}
+          className="mySwiper"
+        >
           {newbooks
             .filter((book) => Boolean(book.image))
             .map((book) => {
