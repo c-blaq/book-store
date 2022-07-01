@@ -68,7 +68,7 @@ const Dashboard = () => {
       </header>
       <section>
         <div className="mb-8 sm:w-4/6">
-          <p className="text-gray-400">Welcome back, {currentUser?.email}!</p>
+          <p className="text-gray-400">Welcome {currentUser?.email}!</p>
           <h2 className="text-2xl">What do you want to read today?</h2>
         </div>
 

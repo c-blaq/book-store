@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../firebase";
 import Button from "./Button";
+import { FaTimes } from "react-icons/fa";
 
 const ForgotPassword = () => {
   const emailRef = useRef();
@@ -14,18 +15,35 @@ const ForgotPassword = () => {
 
     try {
       await resetPassword(emailRef.current.value);
-      console.log("Sent reset password link to email", emailRef.current.value);
       setMessage("Please, check your mail for further instructions!");
     } catch {
       setError("Incorrect email");
     }
   };
 
+  const handleDeleteErrorMessage = () => {
+    setError("");
+  };
+
   return (
     <div className="flex justify-center flex-col h-screen ">
       <div className="w-5/6 sm:w-3/4 lg:w-1/2 m-auto">
         <h2 className="mb-8 text-3xl text-center">Reset Password</h2>
-        {error ? <p>{error}</p> : message ? <p>{message}</p> : ""}
+        {error ? (
+          <div className="text-red-600 my-5 bg-gray-300 p-2 relative">
+            <p>{error}</p>
+            <span
+              className="absolute top-1/3 right-4 cursor-pointer"
+              onClick={handleDeleteErrorMessage}
+            >
+              <FaTimes />
+            </span>
+          </div>
+        ) : message ? (
+          <p className="my-5 p-2 bg-green-400 text-white">{message}</p>
+        ) : (
+          ""
+        )}
         <form action="">
           <div>
             <input
@@ -33,6 +51,7 @@ const ForgotPassword = () => {
               type="email"
               placeholder="Email"
               ref={emailRef}
+              required
             />
           </div>
 

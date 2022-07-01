@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FaTimes } from "react-icons/fa";
 import Button from "./Button";
 import { signUpAuth, useAuth } from "../firebase";
 
@@ -40,12 +41,26 @@ const SignUp = () => {
     setLoading(false);
   };
 
+  const handleDeleteErrorMessage = () => {
+    setError("");
+  };
+
   return (
     <div className="flex justify-center flex-col h-screen ">
       <div className="w-5/6 sm:w-3/4 lg:w-1/2 m-auto">
         <h2 className="mb-8 text-3xl text-center">Create an Account</h2>
         <form action="">
-          {error && <p>{error}</p>}
+          {error && (
+            <div className="text-red-600 my-5 bg-gray-300 p-2 relative">
+              <p>{error}</p>
+              <span
+                className="absolute top-1/3 right-4 cursor-pointer"
+                onClick={handleDeleteErrorMessage}
+              >
+                <FaTimes />
+              </span>
+            </div>
+          )}
           <div>
             <input
               className="w-full bg-gray-100 border-b-4 py-4 pl-3 border-solid border-red-400 outline-none mb-4"
@@ -102,7 +117,7 @@ const SignUp = () => {
 
           <span className="block">
             Forgot password?
-            <Link to="/password" className="text-gray-500 ml-1">
+            <Link to="/forgot-password" className="text-gray-500 ml-1">
               Click here
             </Link>
           </span>
