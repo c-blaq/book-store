@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { resetPassword, useAuth } from "../firebase";
+import { resetPassword } from "../firebase";
 import Button from "./Button";
 
 const ForgotPassword = () => {
   const emailRef = useRef();
-  const currentUser = useAuth();
+
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 

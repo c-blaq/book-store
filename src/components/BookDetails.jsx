@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import Header from "./Header";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const BookDetails = () => {
-  const navigate = useNavigate();
   const { isbn } = useParams();
   const [books, setBooks] = useState([]);
 

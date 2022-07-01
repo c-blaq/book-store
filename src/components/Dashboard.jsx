@@ -10,7 +10,6 @@ import "swiper/css/pagination";
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { FreeMode, Pagination } from "swiper";
 
 const Dashboard = () => {
   const currentUser = useAuth();
