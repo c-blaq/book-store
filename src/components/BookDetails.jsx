@@ -35,26 +35,27 @@ const BookDetails = () => {
                 alt="Book Cover"
               />
               <div className="text-center">
-                <h3 className="text-lg font-bold">{book.title}</h3>
-                <span className="block text-[#9D9D9D]">{book.authors}</span>
+                <h3 className="text-xl sm:text-2xl font-bold">{book.title}</h3>
+                <span className="text-lg sm:text-lg capitalize">
+                  {book.subtitle}
+                </span>
+                <span className="block text-[#9D9D9D] text-lg">
+                  By {book.authors}
+                </span>
                 <span className="block">ratings: {book.rating}</span>
               </div>
             </div>
 
             <div className="details mt-8">
-              <div className="about-author">
-                <h2 className="text-lg font-bold mb-2">About the author</h2>
-                <p className="text-[#9D9D9D]">hhh</p>
-              </div>
-
               <div className="book-overview my-4">
-                <h2 className="text-lg font-bold mb-2">Overview</h2>
+                <h2 className="text-lg sm:text-xl font-bold mb-2">Overview</h2>
                 <p className="text-[#9D9D9D]">{book.desc}</p>
               </div>
             </div>
             <a
               href={`https://itbook.store/books/${book.isbn13}`}
               target="_blank"
+              rel="noreferrer"
             >
               <Button
                 text="Get Book"

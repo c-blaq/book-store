@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import study from "../assets/images/study.png";
 import Button from "./Button";
+import Footer from "./Footer";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export const Home = () => {
         className="mx-auto block text-white font-bold  w-1/2 sm:w-1/4  py-4 rounded-xl bg-[#D45555]"
         onClick={() => navigate("/sign-up")}
       />
+      <Footer />
     </div>
   );
 };

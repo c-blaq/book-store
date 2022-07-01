@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 import Button from "./Button";
+import Footer from "./Footer";
 import { loginAuth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -102,6 +103,7 @@ const Login = () => {
           </span>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

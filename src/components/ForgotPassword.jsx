@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { resetPassword } from "../firebase";
 import Button from "./Button";
 import { FaTimes } from "react-icons/fa";
+import Footer from "./Footer";
 
 const ForgotPassword = () => {
   const emailRef = useRef();
@@ -77,6 +78,7 @@ const ForgotPassword = () => {
           </span>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

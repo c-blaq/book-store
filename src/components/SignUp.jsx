@@ -4,6 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FaTimes } from "react-icons/fa";
 import Button from "./Button";
 import { signUpAuth, useAuth } from "../firebase";
+import Footer from "./Footer";
 
 const SignUp = () => {
   const nameRef = useRef();
@@ -123,6 +124,7 @@ const SignUp = () => {
           </span>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

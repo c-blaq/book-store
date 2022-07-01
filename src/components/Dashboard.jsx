@@ -10,6 +10,7 @@ import "swiper/css/pagination";
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Footer from "./Footer";
 
 const Dashboard = () => {
   const currentUser = useAuth();
@@ -154,6 +155,7 @@ const Dashboard = () => {
             })}
         </Swiper>
       </section>
+      <Footer />
     </div>
   );
 };
