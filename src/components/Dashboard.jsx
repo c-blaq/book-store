@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { logout, useAuth } from "../firebase";
-import { BsFillPersonFill, BsSearch, BsFillMicFill } from "react-icons/bs";
+import { BsFillPersonFill, BsSearch } from "react-icons/bs";
 import axios from "axios";
 
 import { Swiper, SwiperSlide } from "swiper/react";
